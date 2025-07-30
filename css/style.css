@@ -1,17 +1,19 @@
-/* style.css */
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background: #fff;
+  background: #fff; /* keep page background white */
   min-height: 100vh;
 }
 
+/* Center container with patterned background */
 .container {
   width: 100%;
   max-width: 100%;
   padding: 0;
   text-align: center;
+  background: url('../images/background.png') repeat;
+  background-size: contain; /* or use 'auto' or 'cover' as needed */
 }
 
 /* Desktop layout */
@@ -19,8 +21,9 @@ body {
   .container {
     max-width: 600px;
     margin: 0 auto;
+    border-radius: 10px;
   }
-  
+
   .cover-photo {
     border-radius: 10px;
   }
@@ -121,7 +124,6 @@ body {
   display: flex;
   align-items: center;
   padding: 12px 20px;
-  border-bottom: 1px solid #eee;
   justify-content: start;
 }
 

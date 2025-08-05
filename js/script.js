@@ -19,8 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeProfile = document.getElementById('closeProfile');
 
   if (coverPhoto && coverModal && coverModalImg && closeCover) {
-    coverPhoto.addEventListener('click', (e) => {
-      // Use data-img attribute for dynamic path
+    coverPhoto.addEventListener('click', () => {
       const coverImgSrc = coverPhoto.getAttribute('data-img');
       coverModalImg.src = coverImgSrc;
       coverModal.style.display = 'block';
@@ -80,38 +79,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Carousel
   const carouselTrack = document.getElementById('carouselTrack');
-  const totalOriginalImages = 5; // number of unique images
-  let currentIndex = 0;
-  const slideWidthPercent = 10; // since each img is 10% width
+  const carouselContainer = document.querySelector('.carousel-container');
+  const slideWidthPercent = 10;
 
   if (carouselTrack) {
+    const images = carouselTrack.querySelectorAll('img');
+    const slideCount = images.length;
+
+    // Clone the first slide and append it to the end
+    const firstClone = images[0].cloneNode(true);
+    carouselTrack.appendChild(firstClone);
+
+    let currentIndex = 0;
+
     function updateCarousel() {
+      carouselTrack.style.transition = 'transform 0.5s ease-in-out';
       carouselTrack.style.transform = `translateX(-${currentIndex * slideWidthPercent}%)`;
     }
 
     function moveToNextSlide() {
       currentIndex++;
-      if (currentIndex >= totalOriginalImages) {
-        carouselTrack.style.transition = 'none';
-        currentIndex = 0;
-        updateCarousel();
+      updateCarousel();
+
+      if (currentIndex === slideCount) {
         setTimeout(() => {
-          carouselTrack.style.transition = 'transform 0.5s ease-in-out';
-          currentIndex++;
-          updateCarousel();
-        }, 50);
-      } else {
-        updateCarousel();
+          carouselTrack.style.transition = 'none';
+          currentIndex = 0;
+          carouselTrack.style.transform = `translateX(0%)`;
+        }, 500);
       }
     }
 
     let autoSlideInterval = setInterval(moveToNextSlide, 5000);
 
     // Pause on hover (optional)
-    carouselTrack.parentElement.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
-    carouselTrack.parentElement.addEventListener('mouseleave', () => {
-      autoSlideInterval = setInterval(moveToNextSlide, 5000);
-    });
+    if (carouselContainer) {
+      carouselContainer.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+      carouselContainer.addEventListener('mouseleave', () => {
+        autoSlideInterval = setInterval(moveToNextSlide, 5000);
+      });
+    }
   }
 
   // Make carousel clickable

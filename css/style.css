@@ -244,7 +244,7 @@ body {
 }
 
 .branding .brand-desc {
-  margin-top: 50px; /* pushes "Designed by" lower */
+  margin-top: 30px; /* pushes "Designed by" lower */
   font-size: 14px;
   color: #555; /* optional: softer text color */
 }
@@ -305,4 +305,5 @@ body {
 #clickableCarousel {
   cursor: pointer;
 }
+
 

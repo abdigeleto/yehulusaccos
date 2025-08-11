@@ -55,27 +55,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Share Contact Button
-  const shareButton = document.querySelector('.share-btn');
-  if (shareButton) {
-    shareButton.addEventListener('click', async () => {
-      const shareData = {
-        title: 'Rod Ideas Contact',
-        text: 'Contact Tesfamlak Hadgu:\nPhone: +251916131313\nWebsite: https://rodgraphics.com.et',
-        url: 'https://rodgraphics.com.et'
-      };
-      try {
-        if (navigator.share) {
-          await navigator.share(shareData);
-        } else {
-          await navigator.clipboard.writeText(shareData.url);
-          alert('Contact URL copied to clipboard!');
-        }
-      } catch (err) {
-        console.error('Share failed:', err);
+// Share Button Script
+document.querySelectorAll('.share-btn').forEach(button => {
+  button.addEventListener('click', async () => {
+    const name = button.dataset.name;
+    const phone = button.dataset.phone;
+    const website = button.dataset.website;
+
+    const shareData = {
+      title: `${name} Contact`,
+      text: `Contact ${name}:\nPhone: ${phone}\nWebsite: ${website}`,
+      url: website
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        alert(`Contact ${name}:\n${phone}\n${website}`);
       }
-    });
-  }
+    } catch (err) {
+      console.error('Sharing failed:', err);
+    }
+  });
+});
+
 
   // Carousel
   const carouselTrack = document.getElementById('carouselTrack');

@@ -63,8 +63,8 @@ document.querySelectorAll('.share-btn').forEach(button => {
     const website = button.dataset.website;
 
     const shareData = {
-      title: `${name} Contact`,
-      text: `Contact ${name}:\nPhone: ${phone}\nWebsite: ${website}`,
+      title: `Contact ${name}`,
+      text: `Contact name: ${name}\nPhone: ${phone}\nWebsite: ${website}`,
       url: website
     };
 
@@ -72,7 +72,7 @@ document.querySelectorAll('.share-btn').forEach(button => {
       if (navigator.share) {
         await navigator.share(shareData);
       } else {
-        alert(`Contact ${name}:\n${phone}\n${website}`);
+        alert(`Contact name: ${name}\nPhone: ${phone}\nWebsite: ${website}`);
       }
     } catch (err) {
       console.error('Sharing failed:', err);
@@ -134,3 +134,4 @@ document.querySelectorAll('.share-btn').forEach(button => {
     });
   }
 });
+

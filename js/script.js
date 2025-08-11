@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-// Share Button Script
+// Share Button Script (Fixed - No duplicates)
 document.querySelectorAll('.share-btn').forEach(button => {
   button.addEventListener('click', async () => {
     const name = button.dataset.name;
@@ -63,16 +63,17 @@ document.querySelectorAll('.share-btn').forEach(button => {
     const website = button.dataset.website;
 
     const shareData = {
-      title: `Contact ${name}`,
-      text: `Contact name: ${name}\nPhone: ${phone}\nWebsite: ${website}`,
-      url: website
+      title: `${name}'s Contact`,  // Cleaner title (optional)
+      text: `Name: ${name}\nPhone: ${phone}`,  // Website removed here (no duplicate)
+      url: website  // URL appears ONCE as clickable link
     };
 
     try {
       if (navigator.share) {
         await navigator.share(shareData);
       } else {
-        alert(`Contact name: ${name}\nPhone: ${phone}\nWebsite: ${website}`);
+        // Fallback alert (includes website since no URL field)
+        alert(`Name: ${name}\nPhone: ${phone}\nWebsite: ${website}`);
       }
     } catch (err) {
       console.error('Sharing failed:', err);
@@ -134,4 +135,5 @@ document.querySelectorAll('.share-btn').forEach(button => {
     });
   }
 });
+
 
